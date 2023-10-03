@@ -1,3 +1,4 @@
 output
 server/media/pictures/*
 server/media/videos/*
+.DS_Store
