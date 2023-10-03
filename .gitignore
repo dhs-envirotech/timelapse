@@ -1,4 +1,10 @@
+# Cache Files
+**/.DS_Store
+
+# Take a guess :)
 output
 server/media/pictures/*
 server/media/videos/*
-**/.DS_Store
+
+# Test .conf files
+*.conf
