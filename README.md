@@ -15,5 +15,5 @@ If anything is missing here that is in the codebase, please open an issue.
 
 ### Other Notes
 
-`setup.sh` is a rough setup script that sets up a newly flashed Raspbian operating system. This is only designed to run ONCE, after the initial flash of the OS. Otherwise, some files and directories need to be reset completely or deleted for this to not have any side effects.
-`build.sh` does what it sounds like. It builds the Go server and the website and merges them into the `output` folder. Inside, the args needed for cross compilation are by default specified so the code cannot be run on your personal computer.
+- `setup.sh` is a rough setup script that sets up a newly flashed Raspbian operating system. This is only designed to run ONCE, after the initial flash of the OS. Otherwise, some files and directories need to be reset completely or deleted for this to not have any side effects.
+- `build.sh` does what it sounds like. It builds the Go server and the website and merges them into the `output` folder. Inside, the args needed for cross compilation are by default specified so the code cannot be run on your personal computer.
