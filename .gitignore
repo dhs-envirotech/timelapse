@@ -6,5 +6,6 @@ output
 server/media/pictures/*
 server/media/videos/*
 
-# Test .conf files
+# Test files
 *.conf
+test.sh
