@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -30,11 +29,6 @@ func readMedia(folderName string) []string {
 	return names
 }
 func main() {
-	// Other setup
-	cwd, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	// HTTP Server
 	e := echo.New()
@@ -55,43 +49,6 @@ func main() {
 
 	// Website
 	e.Static("/", "web")
-
-	// API
-	api := e.Group("/api")
-
-	// Media
-	// api.GET("/pictures", func(c echo.Context) error {
-	// 	names := readMedia("pictures")
-	// 	return c.JSON(200, names)
-	// })
-
-	// api.GET("/videos", func(c echo.Context) error {
-	// 	names := readMedia("videos")
-	// 	return c.JSON(200, names)
-	// })
-
-	// Settings
-	api.GET("/settings", func(c echo.Context) error {
-		var settings Settings
-
-		settings.Cron = readCron()
-
-		return c.JSON(200, settings)
-	})
-
-	api.POST("/settings", func(c echo.Context) error {
-		fmt.Println(c.Request().Header.Get("Content-Type"))
-		var settings Settings
-		if err := c.Bind(&settings); err != nil {
-			return err
-		}
-
-		if settings.Cron != "" {
-			writeCron(settings.Cron, cwd)
-		}
-
-		return c.JSON(200, settings)
-	})
 
 	e.Logger.Fatal(e.Start(":3000"))
 }
