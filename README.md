@@ -2,8 +2,6 @@
 
 This codebase is all the code & infrastructure needed to turn a Raspberry Pi into a timelapse camera.
 
-> It also runs its own access point (basically a wifi network) to allow access to the web server.
-
 ### Technologies Used
 
 <!-- Variables -->
