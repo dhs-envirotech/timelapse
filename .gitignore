@@ -2,7 +2,8 @@
 **/.DS_Store
 
 # Take a guess :)
-output
+timelapse
+timelapse.tar.gz
 server/media/pictures/*
 server/media/videos/*
 
