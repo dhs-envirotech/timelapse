@@ -1,13 +1,13 @@
 #/bin/bash
 
 # media folder. NOT video or picture folder!
-if [ ! -d "$1" ];
+if test -f "$1";
 then
     echo "'$1' does not exist. Please pass in a valid media folder as the first argument."
     exit 1
 fi
 
-$pictures="$1/pictures"
+pictures="$1/pictures"
 
 descending=$(date +"%Y.%m.%d.%H.%M")
 formatted=$(date +"%B %d, %Y\n%H:%M:%S")

@@ -22,6 +22,7 @@ mv server/main $output/server
 cp server/scripts/* $output/scripts
 
 mkdir $output/media $output/media/pictures $output/media/videos 
+cp server/media/videos/ffmpeg.txt $output/media/videos/ffmpeg.txt
 
 # Package
 tar -czf $output.tar.gz $output
