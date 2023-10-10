@@ -2,7 +2,7 @@ import os
 
 os.system("sudo apt install ffmpeg imagmagick")
 
-projectDirectory="/home/pi/timelapse/"
+projectDirectory="/home/pi/timelapse"
 
 # Custom Media Directory
 # possibleNewProjectDirectory = input("The project directory is where the media folder is located.\nRelative to /home/pi, where is the project directory (timelapse)? ")
@@ -16,10 +16,15 @@ projectDirectory="/home/pi/timelapse/"
 # print("Using %s..." % projectDirectory)
 
 if not os.path.exists(projectDirectory):
-    os.system("tar -xzf timelapse.tar.gz")
+    if os.path.exists("/home/pi/timelapse" + ".tar.gz"):
+        os.system("tar -xzf timelapse.tar.gz")
+    else:
+        print('Please transfer timelapse.tar.gz onto this machine')
+        exit(1)
 
-pictureCron = "*/15 * * * * pi %sscripts/picture.sh %smedia" % (projectDirectory, projectDirectory)
-videoCron = "# 3 * * * * pi %sscripts/video.sh %smedia" % (projectDirectory, projectDirectory)
+webServer = "@reboot pi bash {projectDirectory}/scripts/server.sh"
+picture = "*/15 * * * * pi bash {projectDirectory}/scripts/picture.sh {projectDirectory}/media"
+video = "# 3 * * * * pi bash {projectDirectory}/scripts/video.sh {projectDirectory}/media"
 
 with open("/etc/cron.d/timelapse", "w") as file:
-    file.write(pictureCron + "\n" + videoCron)
+    file.write(webServer + "\n" + picture + "\n" + video)
