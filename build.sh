@@ -2,13 +2,13 @@
 
 output="timelapse"
 
-cd frontend
-npm run build
-cd ..
+# cd frontend
+# npm run build
+# cd ..
 
-if [ $? ]; then
-    clear
-fi
+# if [ $? ]; then
+#     clear
+# fi
 
 cd server
 # Normal, automatic platform detection or force architecture
