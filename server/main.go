@@ -48,7 +48,12 @@ func main() {
 	})
 
 	// Website
-	e.Static("/", "web")
+	// e.Static("/", "web")
+
+	// Auto-routing
+	e.GET("/", func(ctx echo.Context) error {
+		return ctx.Redirect(302, "/media")
+	})
 
 	e.Logger.Fatal(e.Start(":3000"))
 }

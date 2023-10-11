@@ -22,9 +22,9 @@ if not os.path.exists(projectDirectory):
         print('Please transfer timelapse.tar.gz onto this machine')
         exit(1)
 
-webServer = "@reboot pi bash {projectDirectory}/scripts/server.sh"
-picture = "*/15 * * * * pi bash {projectDirectory}/scripts/picture.sh {projectDirectory}/media"
-video = "# 3 * * * * pi bash {projectDirectory}/scripts/video.sh {projectDirectory}/media"
+webServer = f"@reboot pi bash {projectDirectory}/scripts/server.sh"
+picture = f"*/15 * * * * pi bash {projectDirectory}/scripts/picture.sh {projectDirectory}/media"
+video = f"# 3 * * * * pi bash {projectDirectory}/scripts/video.sh {projectDirectory}/media"
 
 with open("/etc/cron.d/timelapse", "w") as file:
     file.write(webServer + "\n" + picture + "\n" + video)
