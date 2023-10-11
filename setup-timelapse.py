@@ -28,3 +28,5 @@ video = f"# 3 * * * * pi bash {projectDirectory}/scripts/video.sh {projectDirect
 
 with open("/etc/cron.d/timelapse", "w") as file:
     file.write(webServer + "\n" + picture + "\n" + video)
+
+os.system(f"sudo chmod +x {projectDirectory}/scripts/picture.sh {projectDirectory}/scripts/video.sh")
