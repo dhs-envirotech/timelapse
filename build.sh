@@ -19,7 +19,7 @@ cd ..
 rm -rf $output
 mkdir $output $output/scripts
 
-mv frontend/dist $output/web
+# mv frontend/dist $output/web
 mv server/main $output/server
 cp server/scripts/* $output/scripts
 
