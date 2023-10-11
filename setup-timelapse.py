@@ -1,6 +1,6 @@
 import os
 
-os.system("sudo apt install ffmpeg imagmagick")
+os.system("sudo apt install ffmpeg imagemagick")
 
 projectDirectory="/home/pi/timelapse"
 
