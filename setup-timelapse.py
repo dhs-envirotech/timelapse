@@ -24,7 +24,7 @@ if not os.path.exists(projectDirectory):
 
 webServer = f"@reboot pi bash {projectDirectory}/scripts/server.sh"
 picture = f"*/15 * * * * root bash {projectDirectory}/scripts/picture.sh {projectDirectory}/media"
-video = f"# 3 * * * * root bash {projectDirectory}/scripts/video.sh {projectDirectory}/media"
+video = f"3 * * * * root bash {projectDirectory}/scripts/video.sh {projectDirectory}/media"
 
 with open("/etc/cron.d/timelapse", "w") as file:
     file.write(webServer + "\n" + picture + "\n" + video)

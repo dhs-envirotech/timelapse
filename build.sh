@@ -25,6 +25,7 @@ cp server/scripts/* $output/scripts
 
 mkdir $output/media $output/media/pictures $output/media/videos 
 cp server/media/videos/ffmpeg.txt $output/media/videos/ffmpeg.txt
+rm $output/media/videos/._ffmpeg.txt
 
 # Package
 tar -czf $output.tar.gz $output
