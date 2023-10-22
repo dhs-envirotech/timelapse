@@ -20,18 +20,19 @@ old_timelapse="$videos/old-timelapse.mp4"
 new_timelapse="$videos/new-timelapse.mp4"
 timelapse="$videos/timelapse.mp4"
 
-ffmpeg -hide_banner -loglevel error -y -framerate 1/3 -pattern_type glob -i "$pictures/*.jpg" "$new_timelapse"
+sudo ffmpeg -hide_banner -loglevel error -y -framerate 1/3 -pattern_type glob -i "$pictures/*.jpg" "$new_timelapse"
 
 if test -f "$timelapse";
 then
     echo "Triggered"
-    mv $timelapse $old_timelapse
+    sudo mv $timelapse $old_timelapse
     
-    ffmpeg -f concat -i "$1/videos/ffmpeg.txt" "$timelapse"
-    rm $old_timelapse $new_timelapse
+    sudo ffmpeg -hide_banner -loglevel -f concat -i "$1/videos/ffmpeg.txt" "$timelapse"
+    sudo rm $old_timelapse $new_timelapse
 else 
-    mv $new_timelapse $timelapse
+    sudo mv $new_timelapse $timelapse
 fi
 
-rm -rf $pictures
-mkdir $pictures
+
+sudo rm -rf $pictures
+sudo mkdir $pictures
