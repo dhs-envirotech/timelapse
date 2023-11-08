@@ -13,15 +13,11 @@ bash build.sh
 ```bash
 scp timelapse.tar.gz setup-timelapse.py pi@raspberrypi.local:/home/pi
 ```
-4. Enable the legacy camera (Interface options -> Legacy camera)
-```bash
-sudo raspi-config
-```
-5. Run the setup script. It will unpack `timelapse.tar.gz` if necessary install all the packages needed, and write (or overwrite) a new crontab at `/etc/cron.d/timelapse`. Takes effect immediately.
+4. Run the setup script. It will unpack `timelapse.tar.gz` if necessary install all the packages needed, and write (or overwrite) a new crontab at `/etc/cron.d/timelapse`. Takes effect immediately.
 ```bash
 sudo python3 setup-timelapse.py
 ```
-6. Restart the computer
+5. Restart the computer
 ```bash
 sudo reboot now
 ```
@@ -42,6 +38,8 @@ sudo reboot now
 [ImageMagick]: https://imagemagick.org/index.php
 [ffmpeg]: https://ffmpeg.org/
 
+> This project does not use Golang or any custom frontend! The documentation was for past prototypes and is only here to provide context to discussions and maybe for the future of this project.
+> We now use Python instead of Go for the web server
 
 - [Golang]: This is a programming language developed by Google as a compiled modern version of low-level languages like C. See [Fireship's video][fireship_Go_video] for more info. This is used to host the web server and can be cross-compiled to a Pi with the right cli args. Although the language is Go instead of Python, the web framework is [Echo] instead of Flask, one of the many options for hosting a HTTP server.
 - `Frontend`: The frontend is decoupled from the server and is combined at build/package time. It uses a variety of technologies that are fairly familiar to web developers. First, for better DX, the build/dev tool is [Vite] (made by the same developer as VueJS!). No javascript framework is necessary so pure javascript for now. For styling, I utilized [PicoCSS].

@@ -1,13 +1,6 @@
 #/bin/bash
 
-# media folder. NOT video or picture folder!
-if test -f "$1";
-then
-    echo "'$1' does not exist. Please pass in a valid media folder as the first argument."
-    exit 1
-fi
-
-pictures="$1/pictures"
+pictures="/home/pi/timelapse/media/sudo apt-get install python-pippictures"
 
 descending=$(date +"%Y.%m.%d.%H.%M")
 formatted=$(date +"%B %d, %Y\n%H:%M:%S")
@@ -15,7 +8,7 @@ formatted=$(date +"%B %d, %Y\n%H:%M:%S")
 filename="$pictures/timelapse-$descending-raw.jpg"
 
 # Raspberry Pi
-sudo raspistill -o $filename
+sudo libcamera-jpeg -v 0 -o $filename
 
 # MacOS (brew install imagesnap)
 # imagesnap $filename

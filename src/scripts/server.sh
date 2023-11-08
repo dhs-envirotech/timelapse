@@ -1,4 +1,4 @@
 #/bin/bash
 
 cd /home/pi/timelapse
-./server &
+python3 server.py &
