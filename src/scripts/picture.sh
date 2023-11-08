@@ -1,6 +1,6 @@
 #/bin/bash
 
-pictures="/home/pi/timelapse/media/sudo apt-get install python-pippictures"
+pictures="/home/pi/timelapse/media/pictures"
 
 descending=$(date +"%Y.%m.%d.%H.%M")
 formatted=$(date +"%B %d, %Y\n%H:%M:%S")
