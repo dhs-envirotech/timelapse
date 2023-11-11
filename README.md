@@ -2,7 +2,7 @@
 
 This codebase is all the code & infrastructure needed to turn a Raspberry Pi into a timelapse camera.
 
-### Usage
+## Usage
 0. [Setup the Pi](https://github.com/orgs/dhs-envirotech/discussions/6)
 1. Connect the camera to the Pi
 2. Clone the repo on your computer and run `build.sh` with the following command:
@@ -22,10 +22,20 @@ sudo python3 setup-timelapse.py
 sudo reboot now
 ```
 
-### Other Notes
+## Other Notes
 
 - `build.sh` does what it sounds like. It builds the Go server and the website and merges them into the `output` folder. Inside, the args needed for cross compilation are by default specified so the binary cannot be run on your personal computer.
 
+### Framerate
+To change the frame rate of the video, there are 2 things to consider. 
+1. The `frame_rate` variable in `video.py` controls the actual framerate
+2. To supply the right amount of frames, the cron jobs in `setup-timelapse.py` need to be modified.
+
+Currently, the configuration collectively represents taking picture at the start of every hour and then appending the pictures to the video every 3 hours with a frame rate of 3.
+
+If the frame rate represents the # of frames present at video compile time, there will a smooth, equal # of frames per second.
+
+> the 3 at the start of the video cron expression says that the video script at the 3rd minute of ever eligible hour
 ### Technologies Used
 
 <!-- Variables -->

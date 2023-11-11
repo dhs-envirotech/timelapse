@@ -9,7 +9,7 @@ if 'SUDO_UID' not in os.environ.keys():
 timelapse_dir = '/home/pi/timelapse'
 timelapse_file = timelapse_dir + '/media/videos/timelapse.webm'
 old_timelapse_file = timelapse_dir + '/media/videos/old-timelapse.webm'
-frame_rate = 1/3
+frame_rate = 3
 
 # Setup
 image_dir = timelapse_dir + "/media/pictures"
