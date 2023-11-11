@@ -1,5 +1,6 @@
 # Cache Files
 **/.DS_Store
+**/__pycache__
 
 # Take a guess :)
 timelapse

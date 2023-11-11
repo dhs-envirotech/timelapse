@@ -1,16 +1,15 @@
 import cv2
 import os
-import socket
+
+if 'SUDO_UID' not in os.environ.keys():
+    print('Run this script with sudo!')
+    exit(1)
 
 # Config
-timelapse_dir = '/home/pi/timelapse' if 'raspberrypi' in socket.gethostname() else '/Users/humanfriend22/dev/dhs-envirotech/test'
+timelapse_dir = '/home/pi/timelapse'
 timelapse_file = timelapse_dir + '/media/videos/timelapse.webm'
 old_timelapse_file = timelapse_dir + '/media/videos/old-timelapse.webm'
 frame_rate = 1/3
-
-# Rename
-if os.path.isfile(timelapse_file):
-    os.rename(timelapse_file, old_timelapse_file)
 
 # Setup
 image_dir = timelapse_dir + "/media/pictures"
@@ -18,6 +17,12 @@ image_files = sorted([os.path.join(image_dir, filename) for filename in os.listd
 if not image_files:
     print("No image files found in the directory.")
     exit()
+
+# Rename
+if os.path.isfile(timelapse_file):
+    os.rename(timelapse_file, old_timelapse_file)
+
+# More setup
 first_image = cv2.imread(image_files[0])
 height, width, layers = first_image.shape
 fourcc = cv2.VideoWriter_fourcc(*'VP80') 

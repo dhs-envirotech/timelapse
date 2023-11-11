@@ -5,12 +5,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ hostname }}</title>
+    <link rel="stylesheet" href="/static/pico.min.css" />
+    <style>
+        body {
+            display: flex;
+            flex-flow: column;
+            height: 100vh;
+        }
+
+        nav {
+            flex: 0 1 auto;
+            margin-bottom: 1rem;
+        }
+
+        h4 {
+            margin-bottom: 0px;
+        }
+
+        section {
+            flex: 1 1 auto;
+            padding: 0 !important;
+            height: 100%;
+        }
+
+        .pictures>li {
+            margin-left: 1.5rem;
+            width: 50%;
+        }
+
+        blockquote {
+            padding-top: 3px
+        }
+    </style>
 </head>
 
-<body>
-    <h1>Welcome!</h1>
-    <br>
-    <a href="/video">View your timelapse video.</a>
+<body class="container" data-theme="dark">
+    <nav>
+        <ul>
+            <li>
+                <h4 class="bottom-margin-0">Welcome!</h4>
+            </li>
+        </ul>
+    </nav>
+    <p>
+        <a href="/video">
+            Current Video
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6" width="20" height="20">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+            </svg>
+        </a>
+    </p>
+    <section>
+        <span>Pending Pictures</span>
+        <ul class="pictures">
+            <blockquote style="display: none;">
+                <footer>
+                    <cite>Nothing... yet</cite>
+                </footer>
+            </blockquote>
+            {% for name in names %}
+            <li>
+                <a href="/picture/{{ name }}">
+                    {{ name }}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                    </svg>
+                </a>
+                <span style="float: right;"></span>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    <div style="text-align: center;">
+        <p>
+            Developed by
+            <a href="https://github.com/dhs-envirotech/timelapse" target="_blank">
+                humanfriend22@dhs-envirotech
+            </a>
+        </p>
+    </div>
+    <script>
+        const list = document.querySelector('.pictures');
+
+        if (list.children.length === 1)
+            document.querySelector('blockquote').style.display = 'block';
+    </script>
 </body>
 
 </html>

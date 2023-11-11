@@ -8,7 +8,7 @@ formatted=$(date +"%B %d, %Y\n%H:%M:%S")
 filename="$pictures/timelapse-$descending-raw.jpg"
 
 # Raspberry Pi
-sudo libcamera-jpeg -v 0 -o $filename
+sudo raspistill -o $filename
 
 # MacOS (brew install imagesnap)
 # imagesnap $filename
