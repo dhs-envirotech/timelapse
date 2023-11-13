@@ -8,13 +8,10 @@
     <link rel="stylesheet" href="/static/pico.min.css" />
     <style>
         body {
-            display: flex;
-            flex-flow: column;
             height: 100vh;
         }
 
         nav {
-            flex: 0 1 auto;
             margin-bottom: 1rem;
         }
 
@@ -23,18 +20,17 @@
         }
 
         section {
-            flex: 1 1 auto;
             padding: 0 !important;
             height: 100%;
         }
 
         .pictures>li {
             margin-left: 1.5rem;
-            width: 50%;
+            width: fit-content;
         }
 
         blockquote {
-            padding-top: 3px
+            padding-top: 3px;
         }
     </style>
 </head>
@@ -44,6 +40,16 @@
         <ul>
             <li>
                 <h4 class="bottom-margin-0">Welcome!</h4>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <p style="margin-bottom: 0">
+                    Developed by
+                    <a href="https://github.com/dhs-envirotech/timelapse" target="_blank">
+                        humanfriend22@dhs-envirotech
+                    </a>
+                </p>
             </li>
         </ul>
     </nav>
@@ -75,23 +81,15 @@
                             d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                     </svg>
                 </a>
-                <span style="float: right;"></span>
             </li>
             {% endfor %}
         </ul>
     </section>
-    <div style="text-align: center;">
-        <p>
-            Developed by
-            <a href="https://github.com/dhs-envirotech/timelapse" target="_blank">
-                humanfriend22@dhs-envirotech
-            </a>
-        </p>
-    </div>
     <script>
-        const list = document.querySelector('.pictures');
+        const pictures = document.querySelector('.pictures');
 
-        if (list.children.length === 1)
+        // If there are no pending pictures
+        if (pictures.children.length === 1)
             document.querySelector('blockquote').style.display = 'block';
     </script>
 </body>
