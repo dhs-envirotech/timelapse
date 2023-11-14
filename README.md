@@ -5,7 +5,13 @@ This codebase is all the code & infrastructure needed to turn a Raspberry Pi int
 ## Usage
 0. [Setup the Pi](https://github.com/orgs/dhs-envirotech/discussions/6)
 1. Connect the camera to the Pi
-2. Clone the repo on your computer and run `build.sh` with the following command:
+2. Setup the camera
+```bash
+sudo raspi-config
+```
+Interface -> Enable Legacy Camera -> Do not restart.
+
+4. Clone the repo on your computer and run `build.sh` with the following command:
 ```bash
 bash build.sh
 ```
