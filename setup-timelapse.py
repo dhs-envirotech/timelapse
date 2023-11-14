@@ -4,7 +4,7 @@ if 'SUDO_UID' not in os.environ.keys():
     print('Run this script with sudo!')
     exit(1)
 
-os.system("sudo apt-get -y install imagemagick python3-opencv python3-flask")
+os.system('sudo apt-get -y update && sudo apt-get -y upgrade && sudo apt-get -y install imagemagick python3-opencv python3-flask')
 
 projectDirectory="/home/pi/timelapse"
 
