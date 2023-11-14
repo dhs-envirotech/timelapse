@@ -10,6 +10,7 @@ This codebase is all the code & infrastructure needed to turn a Raspberry Pi int
 sudo raspi-config
 ```
 Interface -> Enable Legacy Camera -> Do not restart.
+
 4. Clone the repo on your computer and run `build.sh` with the following command:
 ```bash
 bash build.sh
