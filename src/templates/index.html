@@ -1,96 +1,214 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ hostname }}</title>
+    <title>{{ title }}</title>
+    <link rel="icon" type="image/png" href="/static/favicon.png">
     <link rel="stylesheet" href="/static/pico.min.css" />
+    <link rel="stylesheet" href="/static/flexible.css" />
     <style>
-        body {
-            height: 100vh;
-        }
-
-        nav {
-            margin-bottom: 1rem;
-        }
-
-        h4 {
-            margin-bottom: 0px;
-        }
-
-        section {
-            padding: 0 !important;
+        main {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            width: 50%;
             height: 100%;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .pictures>li {
-            margin-left: 1.5rem;
-            width: fit-content;
+        .small-button {
+            padding: 0.5rem 0.8rem;
+            font-size: 0.9rem;
         }
 
-        blockquote {
-            padding-top: 3px;
+        dialog>article {
+            width: 50vw;
+        }
+
+        @media (max-width: 992px) {
+            dialog>article {
+                width: 90vw;
+            }
         }
     </style>
 </head>
 
-<body class="container" data-theme="dark">
-    <nav>
+<body class="container flexible-container" style="height: 100vh">
+    <nav class="flexible-head" style="margin-bottom: 1rem">
         <ul>
             <li>
-                <h4 class="bottom-margin-0">Welcome!</h4>
+                <h4 style="margin-bottom: 0;">Raspberry Pi Timelapse</h4>
             </li>
         </ul>
-        <ul>
-            <li>
-                <p style="margin-bottom: 0">
-                    Developed by
-                    <a href="https://github.com/dhs-envirotech/timelapse" target="_blank">
-                        humanfriend22@dhs-envirotech
-                    </a>
-                </p>
-            </li>
-        </ul>
+        <ul></ul>
     </nav>
-    <p>
-        <a href="/video">
-            Current Video
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-6 h-6" width="20" height="20">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-            </svg>
-        </a>
-    </p>
-    <section>
-        <span>Pending Pictures</span>
-        <ul class="pictures">
-            <blockquote style="display: none;">
-                <footer>
-                    <cite>Nothing... yet</cite>
-                </footer>
-            </blockquote>
-            {% for name in names %}
-            <li>
-                <a href="/picture/{{ name }}">
-                    {{ name }}
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-6 h-6" width="20" height="20">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                    </svg>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
+    <main class="flexible-body">
+        <p>
+            <a href="/video" role="button" class="small-button">Current Video</a>
+            <a href="" role="button" class="small-button" id="take-preview-image">Capture Preview Image</a>
+            <a data-target="modal" id="modal-trigger" role="button" class="small-button" href="">Server Time</a>
+        </p>
+        <div>
+            <span>Pending Pictures</span>
+            <ul class="pictures">
+                <blockquote style="display: none; padding-top: 3px">
+                    <footer>
+                        <cite>Nothing... yet</cite>
+                    </footer>
+                </blockquote>
+                {% for name in names %}
+                <li style="margin-left: 1.5rem; width: fit-content;">
+                    <a href="/picture/{{ name }}">
+                        {{ name }}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6" width="20" height="20">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                        </svg>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </main>
+    <div class="flexible-foot" style="text-align: center">
+        <p style="margin-bottom: 10px">
+            Developed by
+            <a href="https://github.com/dhs-envirotech/timelapse" target="_blank">
+                humanfriend22@dhs-envirotech
+            </a>
+        </p>
+    </div>
+    <dialog id="modal">
+        <article style="max-width: 100vw; height: 90vh; padding-top: var(--block-spacing-horizontal)">
+            <div style="position: relative">
+                <h3 style="display: inline-block;">
+                    Server Time
+                </h3>
+                <span href=""
+                    style="margin-top: 0; margin-bottom: 0; position: absolute; right: 0; top: 0; cursor: pointer;"
+                    aria-label="Close" class="close" onclick="toggle(event)"></span>
+                <p>
+            </div>
+            <p>The Raspberry Pi can't maintain its own time when it doesn't have power and due to its lack of an RTC
+                module or internet connection, the time must be synchronized manually after every restart.</p>
+            </p>
+            <div class="grid" style="width: fit-content; min-width: 100px; margin-bottom: 3rem;">
+                <div>
+                    <b>Server</b>
+                    <p id="server-time"></p>
+                </div>
+                <div>
+                    <b>Browser</b>
+                    <p id="browser-time"></p>
+                </div>
+            </div>
+            <div>
+                <span role="button" id="fetch-server-time" class="small-button" style="margin-bottom: 5px">Fetch Server
+                    Time</span>
+            </div>
+            </p>
+            </div>
+            <p>If the times above are more than a minute apart, you will be automatically prompted to synchronize.
+
+        </article>
+    </dialog>
     <script>
         const pictures = document.querySelector('.pictures');
 
         // If there are no pending pictures
         if (pictures.children.length === 1)
             document.querySelector('blockquote').style.display = 'block';
+
+        // Modal
+        const modal = document.querySelector('dialog');
+
+        for (const anchor of modal.querySelectorAll('a'))
+            anchor.addEventListener('click', event => event.preventDefault());
+
+        const toggle = (event) => {
+            event.preventDefault();
+
+            if (modal.open) {
+                modal.classList.remove('modal-is-opening');
+                modal.classList.add('modal-is-closing');
+            } else {
+                modal.classList.remove('modal-is-closing');
+                modal.classList.add('modal-is-opening');
+            }
+            modal.open = !modal.open;
+        };
+
+        document.getElementById('modal-trigger').addEventListener('click', toggle);
+
+        // Preview Image
+        document.getElementById('take-preview-image').addEventListener('click', async (event) => {
+            event.preventDefault();
+            const response = await fetch('/api/take-preview-image', {
+                method: 'POST'
+            });
+            if (response.status !== 200) {
+                const error = await response.text();
+                window.alert('Image Preview HTTP Error: ' + error)
+                console.error(error);
+            } else {
+                window.alert('Preview taken!');
+            }
+        });
+
+        // Time
+        const serverTimeLagThresholdSeconds = 60;
+
+        const serverTime = document.getElementById('server-time'),
+            browserTime = document.getElementById('browser-time');
+
+        const formatTime = date => date.toLocaleString('en-US', {
+            month: '2-digit',
+            day: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        }).replace(',', '');
+
+        // API
+        async function fetchServerTime() {
+            const response = parseInt(await (await fetch('/api/time')).text());
+            serverTime.innerText = formatTime(new Date(response));
+            return response;
+        }
+
+        async function syncServerTime() {
+            const response = await fetch('/api/time', {
+                method: 'POST',
+                body: formatTime(new Date())
+            });
+            if (response.status !== 200) {
+                const error = await response.text();
+                window.alert('Sync HTTP Error: ' + error)
+                console.error(error);
+            }
+        }
+
+        // Check Server Time at page load
+        fetchServerTime().then(serverTimeAtPageLoad => {
+            const differenceSeconds = (Date.now() - new Date(serverTimeAtPageLoad).getTime()) / 1000;
+            if (differenceSeconds > serverTimeLagThresholdSeconds) {
+                const pleaseSync = confirm(`Server time is lagging by ${differenceSeconds} seconds! Would you like to synchronize the server time?`);
+                if (pleaseSync) {
+                    syncServerTime();
+                }
+            }
+        });
+
+        // Self explanatory
+        document.getElementById('fetch-server-time').addEventListener('click', fetchServerTime);
+
+        // Update Browser Time
+        setInterval(() => browserTime.innerText = formatTime(new Date()), 500);
     </script>
 </body>
 

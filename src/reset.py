@@ -18,7 +18,7 @@ if os.listdir(pictures):
     os.system(f'sudo rm {pictures}/*')
 
 videos = f"{current_dirname}/media/videos"
-if os.listdir(pictures):
+if os.listdir(videos):
     os.system(f'sudo rm {videos}/*')
 
 with open(log_file, 'a') as file:
