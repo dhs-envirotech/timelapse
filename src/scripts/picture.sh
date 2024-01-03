@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 pictures="/home/pi/timelapse/media/pictures"
 
@@ -8,7 +8,7 @@ formatted=$(date +"%B %d, %Y\n%H:%M:%S")
 filename="$pictures/timelapse-$descending-raw.jpg"
 
 # Raspberry Pi
-sudo raspistill -o $filename --width 1280 --height 960
+sudo raspistill -o $filename --width 820 --height 616
 
 # MacOS (brew install imagesnap)
 # imagesnap $filename

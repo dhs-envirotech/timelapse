@@ -1,0 +1,77 @@
+<!-- Old Modal Content -->
+<!-- This info is now in the GitHub repository -->
+
+<p>The Raspberry Pi can't maintain its own time when it doesn't have power and due to its lack of an RTC
+    module or internet connection, the time must be synchronized manually after every restart.</p>
+</p>
+<div class="grid" style="width: fit-content; min-width: 100px; margin-bottom: 3rem;">
+    <div>
+        <b>Server</b>
+        <p id="server-time"></p>
+    </div>
+    <div>
+        <b>Browser</b>
+        <p id="browser-time"></p>
+    </div>
+</div>
+<div>
+    <span role="button" id="fetch-server-time" class="small-button" style="margin-bottom: 5px">Fetch Server
+        Time</span>
+</div>
+</p>
+</div>
+<p>If the times above are more than a minute apart, you will be automatically prompted to synchronize.</p>
+
+<script>
+    // Time
+    const serverTimeLagThresholdSeconds = 60;
+
+    const serverTime = document.getElementById('server-time'),
+        browserTime = document.getElementById('browser-time');
+
+    const formatTime = date => date.toLocaleString('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    }).replace(',', '');
+
+    // API
+    async function fetchServerTime() {
+        const response = parseInt(await (await fetch('/api/time')).text());
+        serverTime.innerText = formatTime(new Date(response));
+        return response;
+    }
+
+    async function syncServerTime() {
+        const response = await fetch('/api/time', {
+            method: 'POST',
+            body: formatTime(new Date())
+        });
+        if (response.status !== 200) {
+            const error = await response.text();
+            window.alert('Sync HTTP Error: ' + error)
+            console.error(error);
+        }
+    }
+
+    // Check Server Time at page load
+    fetchServerTime().then(serverTimeAtPageLoad => {
+        const differenceSeconds = (Date.now() - new Date(serverTimeAtPageLoad).getTime()) / 1000;
+        if (differenceSeconds > serverTimeLagThresholdSeconds) {
+            const pleaseSync = confirm(`Server time is lagging by ${differenceSeconds} seconds! Would you like to synchronize the server time?`);
+            if (pleaseSync) {
+                syncServerTime();
+            }
+        }
+    });
+
+    // Self explanatory
+    document.getElementById('fetch-server-time').addEventListener('click', fetchServerTime);
+
+    // Update Browser Time
+    setInterval(() => browserTime.innerText = formatTime(new Date()), 500);
+</script>

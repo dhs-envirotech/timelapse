@@ -8,7 +8,7 @@ import time
 import json
 
 # Flask
-from flask import Flask, render_template, send_file, send_from_directory, request, jsonify
+from flask import Flask, render_template, send_file, send_from_directory, request
 
 # Flask App
 app = Flask(__name__, static_folder="static")
@@ -41,10 +41,13 @@ if not os.path.exists(set_time_log_file):
     with open(set_time_log_file, 'w') as file:
         file.write('[]')
 
+videos = app.root_path + '/media/videos'
+
 # Homepage
 @app.route('/')
 def index():
-    return render_template('index.html', title=title, names=os.listdir(pictures))
+    return render_template('index.html', title=title, videos=sorted(os.listdir(videos)))
+
 
 # Time Management
 @app.route('/api/time', methods=['GET'])
@@ -101,33 +104,54 @@ def take_preview_image():
 
     # Don't allow around the 2 minute mark (same as cron job, give or take 2)
     if abs(datetime.now().minute - 2) < 2:
-        return 'Time reserved! A preview image cannot be take at this time.', 400
+        return 'Time reserved! A preview image cannot be taken at this time.', 400
     
     if already_taking:
         return 'Already taking a preview image', 400
 
     # Take picture
+    already_taking = True
     if isRaspberryPi:
-        already_taking = True
         os.system('sudo raspistill -o /home/pi/timelapse/media/pictures/preview.jpg')
-        already_taking = False
+    else:
+        os.system(f'imagesnap {app.root_path}/media/pictures/preview.jpg')
+    already_taking = False
 
     return 'Image taken', 200
 
+# Pictures & Archives
+folders = ['Pictures', 'Archives']
+folders_lowercase = ['pictures', 'archives']
 
-# Picture
-pictures = app.root_path + '/media/pictures/'
-@app.route('/picture/<path:name>')
-def picture(name):
-    return send_from_directory(pictures, name)
- 
-# Video
-video_file = app.root_path + '/media/videos/timelapse.webm'
-@app.route('/video')
-def video():
-    if not os.path.exists(video_file):
-        return bytes('Error: ' + video_file + ' does not exist... :(<br><br><a href="/">Go back</a>', 'utf-8')
-    return send_file(video_file, mimetype="video/webm")
+@app.route('/<path:folder>')
+def folder_page(folder):
+    if folder not in folders_lowercase:
+        return 'Folder not found', 404
+    return render_template('directory.html', folder=folder, folder_uppercase=folders[folders_lowercase.index(folder)], files=os.listdir(app.root_path + '/media/' + folder))
+
+@app.route('/<path:folder>/<path:file>')
+def folder_file(folder, file):
+    if folder not in folders_lowercase and folder != 'videos':
+        return 'Folder not found', 404
+    response = send_from_directory(app.root_path + '/media/' + folder, file)
+    response.headers['Cache-Control'] = 'no-cache'
+    return response
+
+    
+# Videos
+# videos = app.root_path + '/media/videos/'
+# @app.route('/video/<path:name>')
+# def video(name):
+#     response = send_from_directory(videos, name)
+#     response.headers['Cache-Control'] = 'no-cache'
+#     return response
+
+# video_file = app.root_path + '/media/timelapse.mp4'
+# @app.route('/video')
+# def video():
+#     if not os.path.exists(video_file):
+#         return bytes('Error: ' + video_file + ' does not exist... :(<br><br><a href="/">Go back</a>', 'utf-8')
+#     return send_file(video_file, mimetype="video/mp4")
 
 # Run!
 if __name__ == '__main__':

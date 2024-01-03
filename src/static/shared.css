@@ -1,0 +1,36 @@
+/* Flexible Height */
+.flexible-container {
+    display: flex;
+    flex-flow: column;
+}
+
+.flexible-head {
+    flex: 0 1 auto;
+}
+
+.flexible-body {
+    flex: 1 1 auto;
+}
+
+.flexible-foot {
+    flex: 0 1 40px;
+}
+
+main {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    width: 50%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.small-button {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+}
+
+.media li {
+    margin-left: 1.5rem;
+    width: fit-content;
+}

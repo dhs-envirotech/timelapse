@@ -7,8 +7,9 @@ cp -r src timelapse
 cd timelapse
 rm -rf __pycache__
 rm **/*/.DS_Store
-rm pictures/*
-rm videos/*
+rm media/pictures/*
+rm media/*.mp4
+rm media/archives/*
 cd ..
 
 # Package

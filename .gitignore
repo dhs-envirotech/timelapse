@@ -6,7 +6,8 @@
 timelapse
 timelapse.tar.gz
 src/media/pictures/*
-src/media/videos/*
+src/media/*.mp4
+src/archives/*
 src/set_time_logs.json
 
 # Test files
