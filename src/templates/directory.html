@@ -25,6 +25,11 @@
         </p>
         <div class="media">
             <ul>
+                <blockquote style="display: none; padding-top: 3px">
+                    <footer>
+                        <cite>Nothing... yet</cite>
+                    </footer>
+                </blockquote>
                 {% for file in files %}
                 <li>
                     <a href="/{{ folder }}/{{ file }}">
@@ -48,6 +53,13 @@
             </a>
         </p>
     </div>
+
+    <script>
+        const media = document.querySelector('.media > ul');
+
+        if (media.children.length === 1)
+            media.querySelector('blockquote').style.display = 'block';
+    </script>
 </body>
 
 </html>

@@ -6,12 +6,12 @@ pictures = f'{media}/pictures'
 videos = f'{media}/videos'
 
 # Get pictures to be archived (sorted alphabetically)
-pictures = sorted(os.listdir(pictures))
-if not pictures:
+pictures_list = sorted(os.listdir(pictures))
+if not pictures_list:
     print('No pictures to archive!')
 
 # "Calculate" zip name
-end_timestamp = pictures[-1].replace('timelapse-', '').replace('.jpg', '')
+end_timestamp = pictures_list[-1].replace('timelapse-', '').replace('.jpg', '')
 zip_name = f'{media}/archives/media-{end_timestamp}.zip'
 
 # Archive Video

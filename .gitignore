@@ -5,10 +5,11 @@
 # Take a guess :)
 timelapse
 timelapse.tar.gz
+
 src/media/pictures/*
-src/media/*.mp4
-src/archives/*
-src/set_time_logs.json
+src/media/videos/*
+src/media/archives/*
+**/*.log
 
 # Test files
 *.conf

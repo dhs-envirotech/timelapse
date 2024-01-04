@@ -16,9 +16,12 @@ if not os.path.exists(projectDirectory):
         exit(1)
 
 jobs = [
-      f"@reboot pi bash {projectDirectory}/scripts/server.sh",
+    f"@reboot pi bash {projectDirectory}/scripts/server.sh",
+    # Every 3 hours, minute 0
     f"0 */3 * * * pi bash {projectDirectory}/scripts/picture.sh",
+    # At minute 2, midnight
     f"2 0 * * * pi bash {projectDirectory}/scripts/video.sh",
+    # 
     f"5 0 * * * pi bash {projectDirectory}/scripts/archive.sh"
 ]
 
