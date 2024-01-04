@@ -11,7 +11,7 @@ sudo raspi-config
 ```
 3. Run our download script to skip some file renaming and moving (otherwise, do it manually by following the script line by line)
 ```bash
-curl -fsSL https://raw.githubusercontent.com/dhs-envirotech/timelapse/main/timelapse.py | sudo bash
+curl -fsSL https://raw.githubusercontent.com/dhs-envirotech/timelapse/main/download.sh | sudo bash
 ```
 4. Enter 'timelapse' directory
 ```bash
