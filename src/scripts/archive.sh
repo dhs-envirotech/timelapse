@@ -16,7 +16,8 @@ sudo cp $VIDEO "$VIDEOS/$ARCHIVED_VIDEO_NAME"
 
 # Archive Pictures (copy timestamped video to pictures to be zipped)
 sudo cp $VIDEOS/$ARCHIVED_VIDEO_NAME $PICTURES/$ARCHIVED_VIDEO_NAME
-sudo zip -r $ZIP_NAME $PICTURES
+cd $MEDIA
+sudo zip -r $ZIP_NAME pictures
 
 # Remove pictures
 sudo rm -rf $PICTURES
