@@ -1,0 +1,14 @@
+# Sample cron entries to run the picture.sh, video.sh, and perhaps other scripts via cron
+
+# Run the picture shell file ever 4 hrs (6 times a day)
+*/4 * * * * /home/pi/timelapse/src/scripts/picture.sh
+
+# run the video shell file once a night (mon-Sat)
+0 23 * * 1-6 /home/pi/timelapse/src/scripts/video.sh
+
+# run the video shell file on Sun night with the weekly flag  
+0 23 * * 7 /home/pi/timelapse/src/scripts/video.sh weekly
+
+#See https://cronitor.io/guides/cron-jobs?utm_source=crontabguru&utm_campaign=cron_reference for an overview of cron and examples
+# you can edit the crontab by typing "crontab -e".  You can see what's currently in it by typing "crontab -l"
+
