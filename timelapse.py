@@ -35,6 +35,7 @@ elif sys.argv[1] == 'reset':
     os.system(f'mkdir {media}')
 
     logging.info('Finished reset media')
+    exit(0)
 elif sys.argv[1] != 'setup':
     print("Please provide action: 'setup' or 'reset'")
     exit(1)
