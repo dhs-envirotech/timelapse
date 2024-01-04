@@ -3,9 +3,6 @@
 **/__pycache__
 
 # Take a guess :)
-timelapse
-timelapse.tar.gz
-
 src/media/pictures/*
 src/media/videos/*
 src/media/archives/*
