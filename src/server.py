@@ -115,7 +115,11 @@ folders_lowercase = ['pictures', 'archives', 'videos']
 def folder_page(folder):
     if folder not in folders_lowercase:
         return 'Folder not found', 404
-    return render_template('directory.html', folder=folder, folder_uppercase=folders[folders_lowercase.index(folder)], files=sorted(os.listdir(app.root_path + '/media/' + folder)))
+    files = filter(
+        lambda name: not name.startswith('.'), 
+        sorted(os.listdir(app.root_path + '/media/' + folder))
+    )
+    return render_template('directory.html', folder=folder, folder_uppercase=folders[folders_lowercase.index(folder)], files=files)
 
 @app.route('/<path:folder>/<path:file>')
 def folder_file(folder, file):
