@@ -21,7 +21,7 @@ jobs = [
     f"0 */3 * * * pi bash {projectDirectory}/scripts/picture.sh",
     # At minute 2, midnight
     f"2 0 * * * pi bash {projectDirectory}/scripts/video.sh",
-    # 
+    # At minute 5, midnight
     f"5 0 * * * pi bash {projectDirectory}/scripts/archive.sh"
 ]
 
