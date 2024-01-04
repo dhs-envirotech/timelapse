@@ -1,9 +1,9 @@
 import os
 
 media = '/home/pi/timelapse/media'
-video = f'{media}/timelapse.mp4'
 pictures = f'{media}/pictures'
 videos = f'{media}/videos'
+video = f'{videos}/timelapse.mp4'
 
 # Get pictures to be archived (sorted alphabetically)
 pictures_list = sorted(os.listdir(pictures))
@@ -14,11 +14,12 @@ if not pictures_list:
 end_timestamp = pictures_list[-1].replace('timelapse-', '').replace('.jpg', '')
 zip_name = f'{media}/archives/media-{end_timestamp}.zip'
 
-# Archive Video
-os.system(f'cp {video} {videos}/timelapse-{end_timestamp}.mp4')
+# Archive Video (copy video to timestamped name)
+archived_video_name = f'timelapse-{end_timestamp}.mp4'
+os.system(f'cp {video} {videos}/{archived_video_name}')
 
-# Archive Pictures (with video)
-os.system(f'mv {video} {pictures}')
+# Archive Pictures (copy timestamped video to pictures to be zipped)
+os.system(f'cp {videos}/{archived_video_name} {pictures}/{archived_video_name}')
 os.system(f'zip -r {zip_name} {pictures}')
 
 # Reset pictures

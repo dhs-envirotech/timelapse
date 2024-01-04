@@ -1,9 +1,18 @@
-import os, sys, logging, datetime
+import os, sys, logging, subprocess
 
+# Check for sudo
 if 'SUDO_UID' not in os.environ.keys():
     print('Run this script with sudo!')
     exit(1)
 
+# Check machine
+isRaspberryPi = False
+try:
+    isRaspberryPi = 'not found' not in str(subprocess.check_output(['which', 'raspistill']))
+except subprocess.CalledProcessError:
+    pass
+
+# Check for reset
 if len(sys.argv) == 1:
     print("Please provide action: 'setup' or 'reset'")
     exit(1)
@@ -14,7 +23,8 @@ elif sys.argv[1] == 'reset':
         print("Aborted")
         exit(0)
 
-    logging.basicConfig(filename='src/server.log', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+    dir_name = 'timelapse' if isRaspberryPi else 'src'
+    logging.basicConfig(filename=f'{dir_name}/server.log', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
     logging.info(f'Attempting reset media')
 
     current_dirname = os.path.dirname(__file__)
@@ -29,25 +39,30 @@ elif sys.argv[1] != 'setup':
     print("Please provide action: 'setup' or 'reset'")
     exit(1)
 
+# Install project dependencies
 os.system('sudo apt-get -y update && sudo apt-get -y upgrade && sudo apt-get -y install imagemagick python3-opencv python3-flask ffmpeg')
 
 projectDirectory="/home/pi/timelapse"
 
+# Legacy installs
 if not os.path.exists(projectDirectory):
     if os.path.exists("timelapse.tar.gz"):
+        # Just in case if the software is using the build.sh script still
         os.system("tar -xzf timelapse.tar.gz timelapse")
-    else:
-        print('Please transfer timelapse.tar.gz to this computer')
-        exit(1)
+    # This else statement is not needed as it may catch a git clone install
+    # else:
+    #     print('Please transfer timelapse.tar.gz to this computer')
+    #     exit(1)
 
+# Write cron jobs
 jobs = [
     f"@reboot pi bash {projectDirectory}/scripts/server.sh",
     # Every 3 hours, minute 0
     f"0 */3 * * * pi bash {projectDirectory}/scripts/picture.sh",
     # At minute 2, midnight
     f"2 0 * * * pi bash {projectDirectory}/scripts/video.sh",
-    # At minute 5, midnight
-    f"5 0 * * * pi bash {projectDirectory}/scripts/archive.sh"
+    # At minute 5, on sunday "morning" (saturday night)
+    f"5 0 * * 0 pi bash {projectDirectory}/scripts/archive.sh"
 ]
 
 with open("/etc/cron.d/timelapse", "w") as file:
