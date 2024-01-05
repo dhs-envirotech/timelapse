@@ -3,14 +3,16 @@
 # Remove Preview Image
 sudo rm /home/pi/timelapse/media/pictures/preview.jpg
 
-pictures="/home/pi/timelapse/media/pictures"
-videos="/home/pi/timelapse/media/videos"
+PICTURES="/home/pi/timelapse/media/pictures"
+VIDEOS="/home/pi/timelapse/media/videos"
 
-cd $videos
-mv timelapse.mp4 old-timelapse.mp4
+# Make "way" for the video
+cd $VIDEOS
+sudo mv timelapse.mp4 old-timelapse.mp4
 
-cd $pictures
-ffmpeg -hide_banner -loglevel error -pattern_type glob -r 3 -i "*.jpg" -s 820x616 -vcodec libx264 "$videos/timelapse.mp4"
+# Make video
+cd $PICTURES
+sudo ffmpeg -hide_banner -loglevel error -pattern_type glob -r 3 -i "*.jpg" -s 820x616 -vcodec libx264 "$VIDEOS/timelapse.mp4"
 
 # KAEHMS
 
