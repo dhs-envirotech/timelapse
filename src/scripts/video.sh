@@ -16,7 +16,7 @@ sudo ffmpeg -hide_banner -loglevel error -pattern_type glob -r 3 -i "*.jpg" -s 8
 
 # Combine with old video
 cd $VIDEOS
-ffmpeg -hide_banner -loglevel error -f concat -safe 0 -i "$VIDEOS/ffmpeg.txt" -c copy timelapse.mp4
+sudo ffmpeg -hide_banner -loglevel error -f concat -safe 0 -i "$VIDEOS/ffmpeg.txt" -c copy timelapse.mp4
 
 # KAEHMS
 
