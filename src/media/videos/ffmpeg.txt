@@ -1,0 +1,2 @@
+file 'old-timelapse.mp4'
+file 'new-timelapse.mp4'

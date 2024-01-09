@@ -12,7 +12,11 @@ sudo mv timelapse.mp4 old-timelapse.mp4
 
 # Make video
 cd $PICTURES
-sudo ffmpeg -hide_banner -loglevel error -pattern_type glob -r 3 -i "*.jpg" -s 820x616 -vcodec libx264 "$VIDEOS/timelapse.mp4"
+sudo ffmpeg -hide_banner -loglevel error -pattern_type glob -r 3 -i "*.jpg" -s 820x616 -vcodec libx264 "$VIDEOS/new-timelapse.mp4"
+
+# Combine with old video
+cd $VIDEOS
+ffmpeg -hide_banner -loglevel error -f concat -safe 0 -i "$VIDEOS/ffmpeg.txt" -c copy timelapse.mp4
 
 # KAEHMS
 
