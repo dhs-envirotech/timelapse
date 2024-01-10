@@ -13,11 +13,7 @@ sudo raspi-config
 ```bash
 curl -fsSL https://raw.githubusercontent.com/dhs-envirotech/timelapse/main/download.sh | sudo bash
 ```
-4. Enter 'timelapse' directory
-```bash
-cd timelapse
-```
-4. Run the setup script. It will unpack `timelapse.tar.gz` if necessary install all the packages needed, and write (or overwrite) a new crontab at `/etc/cron.d/timelapse`. Takes effect immediately.
+4. Run the setup script. It will install all the packages needed, and write (or overwrite) a new crontab at `/etc/cron.d/timelapse`. Takes effect immediately.
 ```bash
 sudo python3 timelapse.py setup
 ```
