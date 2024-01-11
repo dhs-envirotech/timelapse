@@ -1,22 +1,31 @@
 #/bin/bash
 
-# Remove Preview Image
-sudo rm /home/pi/timelapse/media/pictures/preview.jpg
-
 PICTURES="/home/pi/timelapse/media/pictures"
 VIDEOS="/home/pi/timelapse/media/videos"
 
+# Remove preview image
+PREVIEW_IMAGE="$PICTURES/preview.jpg"
+if [ -e "$PREVIEW_IMAGE" ]; then
+    sudo rm $PREVIEW_IMAGE
+fi
+
 # Make "way" for the video
-cd $VIDEOS
-sudo mv timelapse.mp4 old-timelapse.mp4
+# cd $VIDEOS
+# if [ -e "$VIDEOS/timelapse.mp4" ]; then
+#     sudo mv timelapse.mp4 old-timelapse.mp4
+# fi
 
 # Make video
 cd $PICTURES
-sudo ffmpeg -hide_banner -loglevel error -pattern_type glob -r 3 -i "*.jpg" -s 820x616 -vcodec libx264 "$VIDEOS/new-timelapse.mp4"
+sudo ffmpeg -y -hide_banner -loglevel error -pattern_type glob -r 3 -i "*.jpg" -s 820x616 -vcodec libx264 "$VIDEOS/timelapse.mp4"
 
 # Combine with old video
 cd $VIDEOS
-sudo ffmpeg -hide_banner -loglevel error -f concat -safe 0 -i "$VIDEOS/ffmpeg.txt" -c copy timelapse.mp4
+if [ -e "$VIDEOS/old-timelapse.mp4" ]; then
+    sudo mv timelapse.mp4 new-timelapse.mp4
+    sudo ffmpeg -hide_banner -loglevel error -f concat -safe 0 -i "$VIDEOS/ffmpeg.txt" -c copy timelapse.mp4
+    sudo rm old-timelapse.mp4 new-timelapse.mp4
+fi
 
 # KAEHMS
 

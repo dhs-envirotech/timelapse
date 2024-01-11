@@ -22,3 +22,6 @@ sudo zip -r $ZIP_NAME pictures
 # Remove pictures
 sudo rm -rf $PICTURES
 sudo mkdir $PICTURES
+
+# Copy video to old-timelapse.mp4
+sudo cp $VIDEO "$VIDEO/old-timelapse.mp4"
