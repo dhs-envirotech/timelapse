@@ -20,12 +20,12 @@ cd $PICTURES
 sudo ffmpeg -y -hide_banner -loglevel error -pattern_type glob -r 3 -i "*.jpg" -s 820x616 -vcodec libx264 "$VIDEOS/timelapse.mp4"
 
 # Combine with old video
-cd $VIDEOS
-if [ -e "$VIDEOS/old-timelapse.mp4" ]; then
-    sudo mv timelapse.mp4 new-timelapse.mp4
-    sudo ffmpeg -hide_banner -loglevel error -f concat -safe 0 -i "$VIDEOS/ffmpeg.txt" -c copy timelapse.mp4
-    sudo rm old-timelapse.mp4 new-timelapse.mp4
-fi
+# cd $VIDEOS
+# if [ -e "$VIDEOS/old-timelapse.mp4" ]; then
+#     sudo mv timelapse.mp4 new-timelapse.mp4
+#     sudo ffmpeg -hide_banner -loglevel error -f concat -safe 0 -i "$VIDEOS/ffmpeg.txt" -c copy timelapse.mp4
+#     sudo rm old-timelapse.mp4 new-timelapse.mp4
+# fi
 
 # KAEHMS
 

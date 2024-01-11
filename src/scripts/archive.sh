@@ -24,4 +24,4 @@ sudo rm -rf $PICTURES
 sudo mkdir $PICTURES
 
 # Copy video to old-timelapse.mp4
-sudo cp $VIDEO "$VIDEOS/old-timelapse.mp4"
+# sudo cp $VIDEO "$VIDEOS/old-timelapse.mp4"
