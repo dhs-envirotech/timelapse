@@ -40,7 +40,7 @@ if action == 'reset':
     logging.info('Finished reset media')    
 elif action == 'setup':
     # Install project dependencies
-    os.system('sudo apt-get -y update && sudo apt-get -y upgrade && sudo apt-get -y install imagemagick python3-opencv python3-flask ffmpeg')
+    os.system('sudo apt-get -y install imagemagick python3-opencv python3-flask ffmpeg')
 
     projectDirectory="/home/pi/timelapse"
 
